@@ -1,0 +1,138 @@
+
+<div class="alert alert-success" role="alert">
+ Admin:  Gebruikers panel
+</div>
+<div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+
+    <h5 class="card-title">Add new user</h5>
+
+
+      <div class="form-row">
+        <div class="col-7">
+          <input type="text" id="name" class="form-control" placeholder="User Name"  #name>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="User Id - Will be generated." disabled #userId>
+        </div>
+      </div>
+
+      <button class="btn btn-success"  (click)="createUser(userId.value,  name.value)">
+        Add user
+      </button>
+      {{newUser | async |json}}
+
+
+    <h5 class="card-title">Remove user</h5>
+
+      <div class="form-row">
+        <div class="col-7">
+          <input type="text" class="form-control" placeholder="User Name"  #nameToRemove>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control" placeholder="User Id" disabled #userId>
+        </div>
+      </div>
+
+      <button class="btn btn-danger" (click)="removeUser(nameToRemove.value)">
+        Remove user
+      </button>
+      {{userRemove | async |json}}
+
+    <br>
+
+
+<button class="btn btn-primary" (click)="getUsers()" type="button" name="button">Show list of users</button>
+
+</div>
+<div class="">
+<div class="album py-5 bg-light">
+<div class="container">
+  <div class="row">
+    <div class="col-md-5" *ngFor="let user of users | async">
+      <div class="card mb-4 shadow-sm">
+        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+          <title>Placeholder</title>
+          <rect width="100%" height="100%" fill="#55595c"></rect>
+          <text x="50%" y="50%" fill="#eceeef" dy=".3em">User: {{user.name | json}}</text>
+        </svg>
+        <div class="card-body">
+          <p class="card-text"> {{user | json}} </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+              <br>
+              <br>
+              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+              <br>
+
+              <br>
+              <button value="Remove user"   type="button" class="btn btn-sm btn-outline-secondary">Remove</button>
+
+            </div>
+            <small class="text-muted">User ID:  {{user.id | json}}</small>
+            <small class="text-muted">User Notes: {{user.notes | json}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+      <div class="">
+          Categorieën.
+      </div>
+
+      <br>
+
+      <div class="">
+          Zoek en filterfunctie.
+      </div>
+
+      <br>
+
+      <div class="">
+          Notities aanpassen en verwijderen.
+      </div>
+
+
+
+      <h5 class="card-title">Add notes to  user</h5>
+
+
+        <div class="form-row">
+          <div class="col-7">
+            <input type="text" id="name" class="form-control" placeholder="User Name"  #nameUserNotes>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Tekst"  #notes>
+          </div>
+        </div>
+
+        <button class="btn btn-success"  (click)="addNotes(nameUserNotes.value, notes.value)">
+          Add user notes
+        </button>
+        {{userNotes | async |json}}
+
+
+
+        <div class="form-row">
+          <div class="col-7">
+            <input type="text" id="nameForNotes" class="form-control" placeholder="User Name"  #nameUserForNotes>
+          </div>
+          <div class="col">
+            <input type="text" class="form-control" placeholder="Tekst"  #notes>
+          </div>
+        </div>
+
+        <button class="btn btn-success"  (click)="getNotes(nameUserForNotes.value)">
+          Get user notes
+        </button>
+        <br><br><br>
+        {{userRemove | json}}
+
+
+</div>
