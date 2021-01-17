@@ -13,6 +13,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTabsModule} from '@angular/material/tabs';
 
 
+import { FormsModule } from '@angular/forms';
 
 @NgModule ({
 
@@ -37,7 +38,8 @@ exports: [MatButtonModule,
   BrowserModule,
   MatProgressBarModule,
   MatProgressSpinnerModule,
-MatTabsModule ]
+MatTabsModule,
+FormsModule ]
 })
 
 export class MaterialModule{}

@@ -1,5 +1,11 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, Inject} from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
+import { BackendService } from './backend.service';
+
+
+
+
+
 
 
 @Component({
@@ -9,9 +15,10 @@ import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 })
 export class AppComponent implements OnInit{
   title = 'projectDb';
+  notes: string[];
 
 
-  constructor(private http: HttpClient,){
+  constructor(private backendService: BackendService){
 
 
 
@@ -21,8 +28,6 @@ export class AppComponent implements OnInit{
 
 
   ngOnInit(): void {
-
-
 
 
   }

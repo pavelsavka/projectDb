@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BackendService } from 'src/app/backend.service'; //was enigste manier om backend service te importeren.
 import { Observable} from 'rxjs';
+import { HttpClient, HttpParams, HttpHeaders, HttpResponse } from '@angular/common/http'; //import HTTP
+import { Router, NavigationStart } from '@angular/router';
+
 
 
 
@@ -19,8 +22,10 @@ export class UsersComponent implements OnInit {
 users: Observable<any>; //users en newUsers hebben wij nodig, hier maken wij deze aan.
 newUser: Observable<any>;
 notes: Observable<any>;
+userWithNotes: Observable<any>;
 userRemove: Observable<any>;
-userNotes: Observable<any>;
+newNote: Observable<any>;
+noteToRemove: Observable<any>;
 
 constructor(private backendService: BackendService){ //geimporteerde service BackendService
 
@@ -56,17 +61,23 @@ this.userRemove = this.backendService.userRemove; //via geimporteerde service ro
 
 //NOTES ------------------------------------------------------------------------------
 getNotes = (name) => {
-
  this.backendService.getNotes(name); //via geimporteerde service roepen wij getUsers METHOD op.
- this.notes = this.backendService.notes; //via geimporteerde service roepen wij USERS op.
+ this.userWithNotes = this.backendService.userWithNotes; //via geimporteerde service roepen wij USERS op.
 };
 
 
-addNotes = (name, notes) => {
+addNote = (name, notes, cat) => {
 
-this.backendService.addNotes(name, notes); //via geimporteerde service roepen wij methode newUser
-this.userNotes = this.backendService.userNotes; //via geimporteerde service roepen wij newUser op (variabele)
+this.backendService.addNote(name, notes, cat); //via geimporteerde service roepen wij methode newUser
+this.newNote = this.backendService.newNote; //via geimporteerde service roepen wij newUser op (variabele)
 };
+
+removeNote = (userId, id) => {
+
+this.backendService.removeNote(userId, id); //via geimporteerde service roepen wij methode newUser
+this.noteToRemove = this.backendService.noteToRemove; //via geimporteerde service roepen wij newUser op (variabele)
+};
+
 
 
 

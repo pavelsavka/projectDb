@@ -2,137 +2,170 @@
 <div class="alert alert-success" role="alert">
  Admin:  Gebruikers panel
 </div>
-<div class="card">
-  <div class="card-header">
-    Featured
-  </div>
-
-    <h5 class="card-title">Add new user</h5>
 
 
-      <div class="form-row">
-        <div class="col-7">
-          <input type="text" id="name" class="form-control" placeholder="User Name"  #name>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="User Id - Will be generated." disabled #userId>
-        </div>
-      </div>
-
-      <button class="btn btn-success"  (click)="createUser(userId.value,  name.value)">
-        Add user
-      </button>
-      {{newUser | async |json}}
 
 
-    <h5 class="card-title">Remove user</h5>
-
-      <div class="form-row">
-        <div class="col-7">
-          <input type="text" class="form-control" placeholder="User Name"  #nameToRemove>
-        </div>
-        <div class="col">
-          <input type="text" class="form-control" placeholder="User Id" disabled #userId>
-        </div>
-      </div>
-
-      <button class="btn btn-danger" (click)="removeUser(nameToRemove.value)">
-        Remove user
-      </button>
-      {{userRemove | async |json}}
-
-    <br>
 
 
-<button class="btn btn-primary" (click)="getUsers()" type="button" name="button">Show list of users</button>
 
-</div>
-<div class="">
-<div class="album py-5 bg-light">
-<div class="container">
-  <div class="row">
-    <div class="col-md-5" *ngFor="let user of users | async">
-      <div class="card mb-4 shadow-sm">
-        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
-          <title>Placeholder</title>
-          <rect width="100%" height="100%" fill="#55595c"></rect>
-          <text x="50%" y="50%" fill="#eceeef" dy=".3em">User: {{user.name | json}}</text>
-        </svg>
-        <div class="card-body">
-          <p class="card-text"> {{user | json}} </p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-              <br>
-              <br>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-              <br>
 
-              <br>
-              <button value="Remove user"   type="button" class="btn btn-sm btn-outline-secondary">Remove</button>
-
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <h1>Manage Users</h1>
             </div>
-            <small class="text-muted">User ID:  {{user.id | json}}</small>
-            <small class="text-muted">User Notes: {{user.notes | json}}</small>
-          </div>
+            <h5 class="card-title">Add new user</h5>
+
+
+              <div class="form-row">
+                <div class="col-7">
+                  <input type="text" id="name" class="form-control" placeholder="User Name"  #name>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder='XXX'  disabled #userId>
+                </div>
+              </div>
+
+              <button class="btn btn-success"  (click)="createUser(userId.value,  name.value)">
+                Add user
+              </button>
+{{newUser | async |json}}
+
+<br><br>
+            <h5 class="card-title">Remove user</h5>
+
+              <div class="form-row">
+                <div class="col-7">
+                  <input type="text" class="form-control" placeholder="User Name"  #nameToRemove>
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" placeholder="User Id" disabled #userId>
+                </div>
+              </div>
+
+              <button class="btn btn-danger" (click)="removeUser(nameToRemove.value)">
+                Remove user
+              </button>
+{{userRemove | async |json}}
+<br>
+            <br>
+            <h5 class="card-title">Add notes to  user</h5>
+
+            <br>
+
+                <div class="col-7">
+                  <label>Urgency of the Note</label>
+                <div>
+                    <select #catSelected>
+                        <option value="Hight">High</option>
+                        <option value="Mid">Mid</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+                  <input type="text" id="naam" class="form-control" placeholder="User Name"  #nameUserNotes>
+                </div>
+
+                <div class="col-7">
+                  <input type="text" class="form-control" placeholder="Tekst"  #notes>
+                </div>
+
+
+            <br>
+              <button class="btn btn-success"  (click)="addNote(nameUserNotes.value, notes.value, catSelected.value)" type="button" name="button">
+                Add user notes
+              </button>
+              {{newNote  | async | json}}
+<br><br>
+        <button class="btn btn-primary" (click)="getUsers()" type="button" name="button">Show list of users</button>
+
+
+<h3>Filter user names: </h3>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+<br><br>
+            <div class="table-responsive">
+                <table class="table no-wrap user-table mb-0" *ngFor="let user of users | async">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">User - ID</th>
+                      <th scope="col" class="border-0 text-uppercase font-medium">Manage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                          <h5 class="font-medium mb-0" value= {{user.name}} #userNameFromList>{{user.name | json}}</h5>
+                      </td>
+                      <td>
+                          <span class="text-muted" >{{user.id}}</span>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle"  onclick="myFunction()" (click)="getNotes(userNameFromList.value)"><i class="fa fa-book"> </i>  </button>
+                        <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" (click)="removeUser(userNameFromList.value)"><i class="fa fa-trash" ></i> </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
         </div>
-      </div>
+            {{noteToRemove | async| json}}
     </div>
+
+    <br><br>
+</div>
+
+
+
+
+<div class="">
+
+
+
+
+<br>
+
+<h2>Filter user Notes by category:</h2>
+
+<div id="myBtnContainer">
+  <button class="btn active" onclick="filterSelection('all')"> Show all</button>
+  <button class="btn" onclick="filterSelection('high')"> High</button>
+  <button class="btn" onclick="filterSelection('mid')"> Mid</button>
+  <button class="btn" onclick="filterSelection('low')"> Low</button>
+</div>
+<br>
+
+  <div class="album py-5 bg-light">
+
+  <div class="col-md-12" *ngFor="let note of userWithNotes | async">
+
+  <div   value={{note.id}} #noteIdToRemove>  Note Id:  {{note.id | json}} </div>
+    <div value={{note.userId}} #userIdNoteToRemove>
+      UserId: {{note.userId | json}}
+    </div>
+    <div class="">
+          Note: {{note.content | json}}
+    </div>
+    <div class="">
+          Urgency: {{note.cat | json}}
+    </div>
+    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2" (click)="removeNote(userIdNoteToRemove.value,noteIdToRemove.value)"><i class="fa fa-trash" ></i> </button>
+    <button type="button" class="btn btn-outline-info btn-circle btn-lg btn-circle ml-2"><i class="fa fa-edit"></i> </button>
+
+
+
+  </div>
   </div>
 
-</div>
-</div>
-      <div class="">
-          Categorieën.
-      </div>
 
-      <br>
-
-      <div class="">
-          Zoek en filterfunctie.
-      </div>
-
-      <br>
-
-      <div class="">
-          Notities aanpassen en verwijderen.
-      </div>
+<br><br><br>
 
 
 
-      <h5 class="card-title">Add notes to  user</h5>
-
-
-        <div class="form-row">
-          <div class="col-7">
-            <input type="text" id="name" class="form-control" placeholder="User Name"  #nameUserNotes>
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Tekst"  #notes>
-          </div>
-        </div>
-
-        <button class="btn btn-success"  (click)="addNotes(nameUserNotes.value, notes.value)">
-          Add user notes
-        </button>
-        {{userNotes | async |json}}
-
-
-
-        <div class="form-row">
-          <div class="col-7">
-            <input type="text" id="nameForNotes" class="form-control" placeholder="User Name"  #nameUserForNotes>
-          </div>
-          <div class="col">
-            <input type="text" class="form-control" placeholder="Tekst"  #notes>
-          </div>
-        </div>
-
-        <button class="btn btn-success"  (click)="getNotes(nameUserForNotes.value)">
-          Get user notes
-        </button>
-        <br><br><br>
-        {{userRemove | json}}
 
 
 </div>

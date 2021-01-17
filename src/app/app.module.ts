@@ -11,6 +11,11 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersComponent } from './components/users/users.component';
+import { ModalComponent } from './modal/modal.component';
+
+
+
+
 
 const appRoutes: Routes = [
   {path: '', component:HomeComponent},
@@ -25,7 +30,8 @@ const appRoutes: Routes = [
     AppComponent,
     RegistratieComponent,
     LoginComponent,
-    UsersComponent
+    UsersComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

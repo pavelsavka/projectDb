@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http'; //import HTTP
+import { HttpClient, HttpParams, HttpHeaders, HttpResponse } from '@angular/common/http'; //import HTTP
 import { User } from "./user"; //Import zelf gemaakte USER
-import { UserToAddNotes } from "./userToAddNotes"; //Import zelf gemaakte USERREMOVE
+import { Note } from "./note"; //Import zelf gemaakte USERREMOVE
+import { NewNotes } from "./newNotes"; //Import zelf gemaakte USERREMOVE
 import { Observable} from 'rxjs'; //Import Observable
 import { UserRemove } from "./userRemove"; //Import zelf gemaakte USERREMOVE
 import { UserWithNotes } from "./userWithNotes"; //Import zelf gemaakte USERREMOVE
+import { NoteToRemove } from "./noteToRemove"; //Import zelf gemaakte USERREMOVE
 
 
 @Injectable({
@@ -18,10 +20,13 @@ export class BackendService {
 
   //users en newUser aangemaakt
   users: Observable<any>;
+  notes: Observable<any>;
+  userWithNotes: Observable<any>;
+  noteToRemove: Observable<any>;
+
   newUser: Observable<any>;
   userRemove: Observable<any>;
-  notes: Observable<any>;
-  userNotes: Observable<any>;
+  newNote: Observable<any>;
 
   constructor(private http: HttpClient) { // Import in constructor HTTP
 
@@ -33,7 +38,8 @@ export class BackendService {
    getUsers = () => {
      //http.get wordt hier aangesproken
      this.users = this.http.get(this.ROOT_URL+'/users');
-        console.log( this.users );
+               console.log(this.ROOT_URL+'/users');
+
    };
 
    // Post user to API+++++++++++++++++++++++++++++++++++++++werkt++++++++++++++++++++++++++++++++++++++++++++++++
@@ -44,7 +50,6 @@ export class BackendService {
      }
      //http.post user to api
      this.newUser = this.http.post(this.ROOT_URL+'/users', data);
-
    };
 
     // Post remove user to API++++++++++++++++++++++++++++++++++werkt++++++++++++++++++++++++++++++++++++++++++++
@@ -52,33 +57,46 @@ export class BackendService {
       const data: UserRemove = {
        name: name
       }
-
-      this.userRemove = this.http.post(this.ROOT_URL+'/del', data);
+      this.userRemove = this.http.post(this.ROOT_URL+'/remove', data);
      };
 
 
-//NOTES TO DO..............................................
+//NOTES API++++++++++++++++++++++++++++++++++werkt++++++++++++++++++++++++++++++++++++++++++++
 
      getNotes = (name) => {
        const data: UserRemove = {
         name: name
       }
-
-       //http.get wordt hier aangesproken
-       this.notes = this.http.get(this.ROOT_URL+'/notes', {params: {name: name}});
-
-       console.log( this.notes );
+      this.userWithNotes = this.http.get(this.ROOT_URL+'/notes', {params: {name: name}});
+       console.log(this.userWithNotes);
      };
 
-     addNotes = (name, notes) => {
-       const data: UserToAddNotes = {
+//NOTES API++++++++++++++++++++++++++++++++++werkt++++++++++++++++++++++++++++++++++++++++++++
+
+     addNote = (name, content, cat) => {
+       const data: Note = {
+         content: content,
          name: name,
-         note: notes
+         cat: cat
        }
        //http.post user to api
-       this.userNotes = this.http.post(this.ROOT_URL+'/addNotes', {params: {data}});
-
+       this.newNote = this.http.post(this.ROOT_URL+'/addnote', data);
+        console.log("name " + name + " content " + content + " Categorie: "+cat);
      };
+
+     //REMOVE // NOTE:
+     removeNote = (userId, id) => {
+       const data: NoteToRemove = {
+         userId: userId,
+         id: id
+       }
+       //http.post user to api
+       this.noteToRemove = this.http.post(this.ROOT_URL+'/removeNote', data);
+       console.log("user id: " + userId + "  note ID: " + id);
+     };
+
+
+
 
 
 
